@@ -30,9 +30,13 @@ function NewProject(props) {
   return (
     <>
       <Modal ref={modal}>
-        <h2>Invalid Input</h2>
-        <p>Please enter valid title and description</p>
-        <p>Please enter the three fields</p>
+        <h2 className="text-xl font-bold text-stone-700 mt-4 mb-4">
+          Invalid Input
+        </h2>
+        <p className="text-stone-600 mb-4">
+          Please enter valid title and description
+        </p>
+        <p className="text-stone-600 mb-4">Please enter the three fields</p>
       </Modal>
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
