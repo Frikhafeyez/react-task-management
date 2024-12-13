@@ -8,7 +8,15 @@ function Sidebar(props) {
       <div>
         <Button onClick={props.onStartAddProject}>+ Add Project</Button>
       </div>
-      <ul>...</ul>
+      <ul>
+        {props.projects.map((project) => (
+          <li key={project.id}>
+            <button className="w-full text-left mt-4 px-2 py-1 rounded-sm text-stone-400 hover:bg-stone-700 hover:text-stone-50">
+              {project.title}
+            </button>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 }
