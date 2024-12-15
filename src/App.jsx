@@ -8,11 +8,11 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
 
   function handleStartAddProject() {
     setProjectsState((prevState) => {
-      console.log(prevState);
       return {
         ...prevState,
         selectedProjectId: null,
@@ -23,6 +23,7 @@ function App() {
   function handleAddProject(projectData) {
     setProjectsState((prevState) => {
       return {
+        ...prevState,
         selectedProjectId: undefined,
         projects: prevState.projects.concat({
           id: crypto.randomUUID(),
@@ -37,6 +38,40 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: projectId,
+      };
+    });
+  }
+
+  function handleDeleteProject(projectId) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== projectId
+        ),
+      };
+    });
+  }
+
+  function handleAddTask(taskData) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.concat({
+          id: crypto.randomUUID(),
+          projectId: prevState.selectedProjectId,
+          title: taskData,
+        }),
+      };
+    });
+  }
+
+  function handlerClearTask(taskId) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== taskId),
       };
     });
   }
@@ -62,6 +97,12 @@ function App() {
           project={projectsState.projects.find(
             (project) => project.id === projectsState.selectedProjectId
           )}
+          onDeleteProject={handleDeleteProject}
+          tasks={projectsState.tasks.filter(
+            (task) => task.projectId === projectsState.selectedProjectId
+          )}
+          onAddTask={handleAddTask}
+          onClearTask={handlerClearTask}
         ></SelectedProject>
       )}
     </main>
